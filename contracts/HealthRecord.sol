@@ -20,14 +20,15 @@ contract HealthRecords {
        Male
     }
 
-    Patients [] public patients;
+    Patients [] internal patients;
     
-    function registerPatients(uint256 _age, string calldata _patientName, PatientsGender _gender, uint256 _patientId, string calldata _admissionDate, string calldata _condition, bool _discharged) public {
+    function registerPatients(uint256 _age, string memory _patientName, PatientsGender _gender, uint256 _patientId, string memory _admissionDate, string memory _condition, bool _discharged) public {
         patients.push(Patients(_age, _gender,_patientName, _patientId, _admissionDate, _condition, _discharged));
     }
 
 
-    // function retrievePatients() public view returns (uint256, string memory, PatientsGender,uint256, string memory){
-    //     return ();
-    // }
+    function retrievePatients(uint _index) public view returns (uint256, string memory, PatientsGender,uint256, string memory,bool){
+        Patients storage patient = patients[_index];
+        return (patient.age, patient.patientName, patient.gender,patient.patientId,patient.admissionDate,patient.discharged);
+    }
 }
